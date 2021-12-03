@@ -13,19 +13,26 @@ public class Passwortvalidierung {
     }
 
     public static boolean isPasswordValid(String passwordCheck) {
-        String[] forbiddenWords = {"passwort"};
+        String[] forbiddenWords = {"passwort", "password", "12345678", "87654321"};
         boolean valid = true;
+
         if (passwordCheck.equals(forbiddenWords)) {
             print("Passwort ungültig, nicht sicher genug.");
             valid = false;
         } else if (passwordCheck.length() < 8) { // atleast 8 characters
             print("Passwort ungültig, zu kurz.");
             valid = false;
-        } else if (!passwordCheck.matches(".*\\d.*")) { // atleast 1 Digit
+        } else if (!passwordCheck.matches(".*\\d.*")) { // atleast 1 digit
             print("Passwort ungültig, mindestens eine Zahl.");
             valid = false;
-        } else if (!passwordCheck.matches(".*\\D.*")) { // atleast 1 Letter
+        } else if (!passwordCheck.matches(".*\\D.*")) { // atleast 1 letter
             print("Passwort ungültig, mindestens ein Buchstabe.");
+            valid = false;
+        } else if (!passwordCheck.matches(".*[a-z].*")) { // atleast 1 lower case letter
+            print("Passwort ungültig, mindestens einen Kleinbuchstabe.");
+            valid = false;
+        }else if (!passwordCheck.matches(".*[A-Z].*")) { // atleast 1 upper case letter
+            print("Passwort ungültig, mindestens einen Großbuchstabe.");
             valid = false;
         } else if (!passwordCheck.matches(".*\\W.*")) { // atleast 1 non-char
             print("Passwort ungültig, mindestens ein Sonderzeichen.");
@@ -42,8 +49,7 @@ public class Passwortvalidierung {
             String passwordCheck = scanner.next();
             int i = 1;
 
-
-            while (passwordSaved.equals(passwordCheck) && i < 3) {
+            while (!passwordSaved.equals(passwordCheck) && i < 3) {
                 print("Falsches Passwort... Bitte erneut bestätigen!");
                 passwordCheck = scanner.next();
                 i++;

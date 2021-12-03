@@ -4,9 +4,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class PasswortvalidierungTest {
 
-    String examplePassword = "n€uef|sch3";
+    String examplePassword = "n€uef|Sch3";
 
-    //String[] badPassword = {"passwort", "password", "hello", "hallo", "123456"};
+    String[] badPassword = {"passwort", "password", "hello", "hallo", "123456"};
 
     @Test
     public void testPasswordLength() {
@@ -29,8 +29,12 @@ class PasswortvalidierungTest {
     }
 
     @Test
-    public void testPasswordContainsBothCamelCases() {
-
+    public void testPasswordContainsLowerCamelCases() {
+        assert examplePassword.matches(".*[a-z].*");
+    }
+    @Test
+    public void testPasswordContainsUpperCamelCases() {
+        assert examplePassword.matches(".*[A-Z].*");
     }
 
     @Test
